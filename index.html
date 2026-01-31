@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Jashn-A-Sabir Ali</title>
+
+  <!-- IMPORTANT FOR MOBILE -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
+      padding: 10px;
       background: radial-gradient(circle, #000, #111);
       color: #fff;
       font-family: Arial, sans-serif;
@@ -12,27 +18,39 @@
     }
 
     #clock {
-      font-size: 60px;
-      margin-top: 70px;
+      font-size: clamp(32px, 10vw, 60px);
+      margin-top: 40px;
       letter-spacing: 3px;
     }
 
     #countdown {
-      font-size: 26px;
+      font-size: clamp(18px, 5vw, 26px);
       margin-top: 15px;
       color: #00ffcc;
     }
 
     .invite {
-      font-size: 22px;
+      font-size: clamp(16px, 4.5vw, 22px);
       margin-top: 18px;
       opacity: 0;
       animation: fadeIn 2s forwards;
+      line-height: 1.5;
     }
 
-    #line1 { animation-delay: 1s; color: #ffcc00; font-size: 28px; }
-    #line2 { animation-delay: 3s; }
-    #line3 { animation-delay: 5s; color: #ffcc00; }
+    #line1 {
+      animation-delay: 1s;
+      color: #ffcc00;
+      font-size: clamp(22px, 6vw, 28px);
+    }
+
+    #line2 {
+      animation-delay: 3s;
+    }
+
+    #line3 {
+      animation-delay: 5s;
+      color: #ffcc00;
+    }
 
     #finalMessage {
       display: none;
@@ -41,15 +59,16 @@
     }
 
     #finalMessage h1 {
-      font-size: 42px;
+      font-size: clamp(26px, 7vw, 42px);
       color: gold;
       text-shadow: 0 0 20px gold;
     }
 
     #finalMessage p {
-      font-size: 22px;
+      font-size: clamp(16px, 4.5vw, 22px);
       margin-top: 15px;
       color: #ddd;
+      line-height: 1.5;
     }
 
     @keyframes fadeIn {
@@ -57,70 +76,72 @@
     }
   </style>
 </head>
+
 <body>
 
-<div id="clock"></div>
-<div id="countdown"></div>
+  <div id="clock"></div>
+  <div id="countdown"></div>
 
-<!-- INVITATION -->
-<div class="invite" id="line1">Jashn - A - Sabir Ali</div>
-<div class="invite" id="line2">
-  Tamam Hazrath ko 10 baja <br>
-  Jashn-A-Sabir Ali ki Jalse Dawat Hai<br>
-  Jalse May Hazir hokar Apna Dost ka liya Dua Kare
-</div>
-<div class="invite" id="line3">Venue : Shahi Mandi</div>
+  <!-- INVITATION -->
+  <div class="invite" id="line1">Jashn - A - Sabir Ali</div>
 
-<!-- FINAL MESSAGE -->
-<div id="finalMessage">
-  <h1>🌹 Happy Birthday Late Sabir Ali 🌹</h1>
-  <p>
-    Some people never leave us — they live forever in our memories,  
-    inspiring us to live better, kinder, and stronger every day.
-  </p>
-</div>
+  <div class="invite" id="line2">
+    Tamam Hazrath ko 10 baja <br>
+    Jashn-A-Sabir Ali ki Jalse Dawat Hai<br>
+    Jalse May Hazir hokar Apna Dost ka liya Dua Kare
+  </div>
 
-<script>
-let fired = false;
+  <div class="invite" id="line3">Venue : Shahi Mandi</div>
 
-function updateClock() {
-  const now = new Date();
+  <!-- FINAL MESSAGE -->
+  <div id="finalMessage">
+    <h1>🌹 Happy Birthday Late Sabir Ali 🌹</h1>
+    <p>
+      Some people never leave us — they live forever in our memories,  
+      inspiring us to live better, kinder, and stronger every day.
+    </p>
+  </div>
 
-  let h = now.getHours();
-  const m = now.getMinutes();
-  const s = now.getSeconds();
-  const ampm = h >= 12 ? "PM" : "AM";
-  h = h % 12 || 12;
+  <script>
+    let fired = false;
 
-  document.getElementById("clock").innerHTML =
-    h.toString().padStart(2,"0") + ":" +
-    m.toString().padStart(2,"0") + ":" +
-    s.toString().padStart(2,"0") + " " + ampm;
+    function updateClock() {
+      const now = new Date();
 
-  const target = new Date();
-  target.setHours(22, 0, 0, 0); // 10:00 PM
+      let h = now.getHours();
+      const m = now.getMinutes();
+      const s = now.getSeconds();
+      const ampm = h >= 12 ? "PM" : "AM";
+      h = h % 12 || 12;
 
-  const diff = target - now;
+      document.getElementById("clock").innerHTML =
+        h.toString().padStart(2,"0") + ":" +
+        m.toString().padStart(2,"0") + ":" +
+        s.toString().padStart(2,"0") + " " + ampm;
 
-  if (diff > 0) {
-    const hrs = Math.floor(diff / (1000*60*60));
-    const mins = Math.floor((diff / (1000*60)) % 60);
-    const secs = Math.floor((diff / 1000) % 60);
+      const target = new Date();
+      target.setHours(22, 0, 0, 0); // 10:00 PM
 
-    document.getElementById("countdown").innerHTML =
-      "⏳ Countdown : " + hrs + "h " + mins + "m " + secs + "s";
-  }
+      const diff = target - now;
 
-  // AFTER COUNTDOWN FINISHES
-  if (!fired && diff <= 0) {
-    fired = true;
-    document.getElementById("countdown").style.display = "none";
-    document.getElementById("finalMessage").style.display = "block";
-  }
-}
+      if (diff > 0) {
+        const hrs = Math.floor(diff / (1000*60*60));
+        const mins = Math.floor((diff / (1000*60)) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
 
-setInterval(updateClock, 1000);
-</script>
+        document.getElementById("countdown").innerHTML =
+          "⏳ Countdown : " + hrs + "h " + mins + "m " + secs + "s";
+      }
+
+      if (!fired && diff <= 0) {
+        fired = true;
+        document.getElementById("countdown").style.display = "none";
+        document.getElementById("finalMessage").style.display = "block";
+      }
+    }
+
+    setInterval(updateClock, 1000);
+  </script>
 
 </body>
 </html>
