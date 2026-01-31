@@ -34,21 +34,26 @@
     #line2 { animation-delay: 3s; }
     #line3 { animation-delay: 5s; color: #ffcc00; }
 
-    #tribute {
+    #finalMessage {
       display: none;
       margin-top: 40px;
-      font-size: 40px;
+      animation: fadeIn 2s forwards;
+    }
+
+    #finalMessage h1 {
+      font-size: 42px;
       color: gold;
-      animation: glow 2s infinite alternate;
+      text-shadow: 0 0 20px gold;
+    }
+
+    #finalMessage p {
+      font-size: 22px;
+      margin-top: 15px;
+      color: #ddd;
     }
 
     @keyframes fadeIn {
       to { opacity: 1; }
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px gold; }
-      to { text-shadow: 0 0 30px orange; }
     }
   </style>
 </head>
@@ -57,46 +62,27 @@
 <div id="clock"></div>
 <div id="countdown"></div>
 
-<!-- INVITATION UNDER COUNTDOWN -->
+<!-- INVITATION -->
 <div class="invite" id="line1">Jashn - A - Sabir Ali</div>
 <div class="invite" id="line2">
-   Tamam Hazrath ko 10 baja <br>
-  Jashn-A-Sabir Ali ki Jalse ki Dawat Hai<br>
-   Jalse May Hazir hokar Apna Dost ka liya Dua Kare 
+  Tamam Hazrath ko 10 baja <br>
+  Jashn-A-Sabir Ali ki Jalse Dawat Hai<br>
+  Jalse May Hazir hokar Apna Dost ka liya Dua Kare
 </div>
 <div class="invite" id="line3">Venue : Shahi Mandi</div>
 
-<div id="tribute">🌹 In Loving Memory 🌹</div>
+<!-- FINAL MESSAGE -->
+<div id="finalMessage">
+  <h1>🌹 Happy Birthday Late Sabir Ali 🌹</h1>
+  <p>
+    Some people never leave us — they live forever in our memories,  
+    inspiring us to live better, kinder, and stronger every day.
+  </p>
+</div>
 
 <script>
-/* -------- EMOTIONAL MUSIC -------- */
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-let audioCtx, musicLoop;
+let fired = false;
 
-function startMusic() {
-  audioCtx = new AudioContext();
-  musicLoop = setInterval(() => {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(196, audioCtx.currentTime);
-
-    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(
-      0.001,
-      audioCtx.currentTime + 3
-    );
-
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    osc.start();
-    osc.stop(audioCtx.currentTime + 3);
-  }, 3000);
-}
-
-/* -------- CLOCK + COUNTDOWN -------- */
 function updateClock() {
   const now = new Date();
 
@@ -112,7 +98,7 @@ function updateClock() {
     s.toString().padStart(2,"0") + " " + ampm;
 
   const target = new Date();
-  target.setHours(22, 0, 0, 0);
+  target.setHours(20, 25, 0, 0); // 10:00 PM
 
   const diff = target - now;
 
@@ -125,11 +111,11 @@ function updateClock() {
       "⏳ Countdown : " + hrs + "h " + mins + "m " + secs + "s";
   }
 
-  // EXACT 10 PM
-  if (now.getHours() === 22 && m === 0 && s === 0) {
+  // AFTER COUNTDOWN FINISHES
+  if (!fired && diff <= 0) {
+    fired = true;
     document.getElementById("countdown").style.display = "none";
-    document.getElementById("tribute").style.display = "block";
-    startMusic();
+    document.getElementById("finalMessage").style.display = "block";
   }
 }
 
