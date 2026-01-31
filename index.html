@@ -4,43 +4,53 @@
   <meta charset="UTF-8">
   <title>Jashn-A-Sabir Ali</title>
 
-  <!-- IMPORTANT FOR MOBILE -->
+  <!-- MOBILE FIX -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       margin: 0;
-      padding: 10px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background: radial-gradient(circle, #000, #111);
       color: #fff;
       font-family: Arial, sans-serif;
       text-align: center;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
     }
 
     #clock {
-      font-size: clamp(32px, 10vw, 60px);
-      margin-top: 40px;
+      font-size: clamp(40px, 11vw, 64px);
       letter-spacing: 3px;
+      margin-bottom: 10px;
     }
 
     #countdown {
-      font-size: clamp(18px, 5vw, 26px);
-      margin-top: 15px;
+      font-size: clamp(20px, 6vw, 28px);
       color: #00ffcc;
+      margin-bottom: 20px;
     }
 
     .invite {
-      font-size: clamp(16px, 4.5vw, 22px);
-      margin-top: 18px;
+      font-size: clamp(18px, 5.5vw, 24px);
+      margin-top: 15px;
+      line-height: 1.6;
       opacity: 0;
       animation: fadeIn 2s forwards;
-      line-height: 1.5;
     }
 
     #line1 {
-      animation-delay: 1s;
       color: #ffcc00;
-      font-size: clamp(22px, 6vw, 28px);
+      font-size: clamp(24px, 7vw, 32px);
+      animation-delay: 1s;
     }
 
     #line2 {
@@ -48,27 +58,27 @@
     }
 
     #line3 {
-      animation-delay: 5s;
       color: #ffcc00;
+      animation-delay: 5s;
     }
 
     #finalMessage {
       display: none;
-      margin-top: 40px;
+      margin-top: 30px;
       animation: fadeIn 2s forwards;
     }
 
     #finalMessage h1 {
-      font-size: clamp(26px, 7vw, 42px);
+      font-size: clamp(28px, 8vw, 44px);
       color: gold;
       text-shadow: 0 0 20px gold;
     }
 
     #finalMessage p {
-      font-size: clamp(16px, 4.5vw, 22px);
+      font-size: clamp(17px, 5vw, 22px);
       margin-top: 15px;
       color: #ddd;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     @keyframes fadeIn {
@@ -79,27 +89,31 @@
 
 <body>
 
-  <div id="clock"></div>
-  <div id="countdown"></div>
+  <div class="container">
 
-  <!-- INVITATION -->
-  <div class="invite" id="line1">Jashn - A - Sabir Ali</div>
+    <div id="clock"></div>
+    <div id="countdown"></div>
 
-  <div class="invite" id="line2">
-    Tamam Hazrath ko 10 baja <br>
-    Jashn-A-Sabir Ali ki Jalse Dawat Hai<br>
-    Jalse May Hazir hokar Apna Dost ka liya Dua Kare
-  </div>
+    <div class="invite" id="line1">Jashn - A - Sabir Ali</div>
 
-  <div class="invite" id="line3">Venue : Shahi Mandi</div>
+    <div class="invite" id="line2">
+      Tamam Hazrath ko 10 baja <br>
+      Jashn-A-Sabir Ali ki Jalse Dawat Hai<br>
+      Jalse May Hazir hokar Apna Dost ka liya Dua Kare
+    </div>
 
-  <!-- FINAL MESSAGE -->
-  <div id="finalMessage">
-    <h1>🌹 Happy Birthday Late Sabir Ali 🌹</h1>
-    <p>
-      Some people never leave us — they live forever in our memories,  
-      inspiring us to live better, kinder, and stronger every day.
-    </p>
+    <div class="invite" id="line3">
+      Venue : Shahi Mandi
+    </div>
+
+    <div id="finalMessage">
+      <h1>🌹 Happy Birthday Late Sabir Ali 🌹</h1>
+      <p>
+        Some people never leave us — they live forever in our memories,  
+        inspiring us to live better, kinder, and stronger every day.
+      </p>
+    </div>
+
   </div>
 
   <script>
