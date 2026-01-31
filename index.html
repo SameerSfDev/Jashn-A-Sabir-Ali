@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jashn-A-Sabir Ali</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle, #000, #111);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    #clock {
+      font-size: 60px;
+      margin-top: 70px;
+      letter-spacing: 3px;
+    }
+
+    #countdown {
+      font-size: 26px;
+      margin-top: 15px;
+      color: #00ffcc;
+    }
+
+    .invite {
+      font-size: 22px;
+      margin-top: 18px;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    #line1 { animation-delay: 1s; color: #ffcc00; font-size: 28px; }
+    #line2 { animation-delay: 3s; }
+    #line3 { animation-delay: 5s; color: #ffcc00; }
+
+    #tribute {
+      display: none;
+      margin-top: 40px;
+      font-size: 40px;
+      color: gold;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px gold; }
+      to { text-shadow: 0 0 30px orange; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="clock"></div>
+<div id="countdown"></div>
+
+<!-- INVITATION UNDER COUNTDOWN -->
+<div class="invite" id="line1">Jashn - A - Sabir Ali</div>
+<div class="invite" id="line2">
+   Tamam Hazrath ko 10 baja <br>
+  Jashn-A-Sabir Ali ki Jalse ki Dawat Hai<br>
+   Jalse May Hazir hokar Apna Dost ka liya Dua Kare 
+</div>
+<div class="invite" id="line3">Venue : Shahi Mandi</div>
+
+<div id="tribute">🌹 In Loving Memory 🌹</div>
+
+<script>
+/* -------- EMOTIONAL MUSIC -------- */
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+let audioCtx, musicLoop;
+
+function startMusic() {
+  audioCtx = new AudioContext();
+  musicLoop = setInterval(() => {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(196, audioCtx.currentTime);
+
+    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      audioCtx.currentTime + 3
+    );
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime + 3);
+  }, 3000);
+}
+
+/* -------- CLOCK + COUNTDOWN -------- */
+function updateClock() {
+  const now = new Date();
+
+  let h = now.getHours();
+  const m = now.getMinutes();
+  const s = now.getSeconds();
+  const ampm = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+
+  document.getElementById("clock").innerHTML =
+    h.toString().padStart(2,"0") + ":" +
+    m.toString().padStart(2,"0") + ":" +
+    s.toString().padStart(2,"0") + " " + ampm;
+
+  const target = new Date();
+  target.setHours(22, 0, 0, 0);
+
+  const diff = target - now;
+
+  if (diff > 0) {
+    const hrs = Math.floor(diff / (1000*60*60));
+    const mins = Math.floor((diff / (1000*60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").innerHTML =
+      "⏳ Countdown : " + hrs + "h " + mins + "m " + secs + "s";
+  }
+
+  // EXACT 10 PM
+  if (now.getHours() === 22 && m === 0 && s === 0) {
+    document.getElementById("countdown").style.display = "none";
+    document.getElementById("tribute").style.display = "block";
+    startMusic();
+  }
+}
+
+setInterval(updateClock, 1000);
+</script>
+
+</body>
+</html>
